@@ -1,0 +1,26 @@
+version: '3.3'
+
+services:
+  db:
+    image: postgres:13
+    container_name: db_device_management
+    environment:
+      POSTGRES_DB: device_db
+      POSTGRES_USER: developer
+      POSTGRES_PASSWORD: golangdeveloper123
+    ports:
+      - "5432:5432"
+
+  app:
+    container_name: app_device_management
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: developer
+      DB_PASSWORD: golangdeveloper123
+      DB_NAME: device_db
+    ports:
+      - "8080:8080"
